@@ -18,7 +18,7 @@
 	class="position-fixed top-0 start-0 bg-light overflow-y-auto px-3 pb-3 d-flex flex-column"
 >
 	<div>
-		<h5 class="my-3">Visual Rights History</h5>
+		<h4 class="my-3">Visual Rights History</h4>
 		<Legend />
 		<div class="mb-4">
 			<div class="text-uppercase fs-7 mb-1">Group sources by</div>

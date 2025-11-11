@@ -1,45 +1,46 @@
-// @font-face {
-// 	font-family: 'General Sans';
-// 	src:
-// 		url('./fonts/GeneralSans-Variable.woff2') format('woff2'),
-// 		url('./fonts/GeneralSans-Variable.woff') format('woff'),
-// 		url('./fonts/GeneralSans-Variable.ttf') format('truetype');
-// 	font-weight: 200 700;
-// 	font-display: swap;
-// 	font-style: normal;
-// }
+@font-face {
+	font-family: 'Switzer';
+	src:
+		url('./fonts/Switzer-Variable.woff2') format('woff2'),
+		url('./fonts/Switzer-Variable.woff') format('woff'),
+		url('./fonts/Switzer-Variable.ttf') format('truetype');
+	font-weight: 100 900;
+	font-display: swap;
+	font-style: normal;
+}
 
-// @font-face {
-// 	font-family: 'General Sans';
-// 	src:
-// 		url('./fonts/GeneralSans-VariableItalic.woff2') format('woff2'),
-// 		url('./fonts/GeneralSans-VariableItalic.woff') format('woff'),
-// 		url('./fonts/GeneralSans-VariableItalic.ttf') format('truetype');
-// 	font-weight: 200 700;
-// 	font-display: swap;
-// 	font-style: italic;
-// }
+@font-face {
+	font-family: 'Switzer';
+	src:
+		url('./fonts/Switzer-VariableItalic.woff2') format('woff2'),
+		url('./fonts/Switzer-VariableItalic.woff') format('woff'),
+		url('./fonts/Switzer-VariableItalic.ttf') format('truetype');
+	font-weight: 100 900;
+	font-display: swap;
+	font-style: italic;
+}
 
-// @font-face {
-// 	font-family: 'Libre Caslon';
-// 	src: url('./fonts/LibreCaslon-regular.woff') format('woff');
-// 	font-weight: normal;
-// 	font-style: normal;
-// }
+@font-face {
+	font-family: 'Rowan';
+	src:
+		url('./fonts/Rowan-Variable.woff2') format('woff2'),
+		url('./fonts/Rowan-Variable.woff') format('woff'),
+		url('./fonts/Rowan-Variable.ttf') format('truetype');
+	font-weight: 300 700;
+	font-display: swap;
+	font-style: normal;
+}
 
-// @font-face {
-// 	font-family: 'Libre Caslon';
-// 	src: url('./fonts/LibreCaslon-italic.woff') format('woff');
-// 	font-weight: normal;
-// 	font-style: italic;
-// }
-
-// @font-face {
-// 	font-family: 'Libre Caslon';
-// 	src: url('./fonts/LibreCaslon-bold.woff') format('woff');
-// 	font-weight: bold;
-// 	font-style: normal;
-// }
+@font-face {
+	font-family: 'Rowan';
+	src:
+		url('./fonts/Rowan-VariableItalic.woff2') format('woff2'),
+		url('./fonts/Rowan-VariableItalic.woff') format('woff'),
+		url('./fonts/Rowan-VariableItalic.ttf') format('truetype');
+	font-weight: 300 700;
+	font-display: swap;
+	font-style: italic;
+}
 
 /* 1. Include functions first (so you can manipulate colors, SVGs, calc, etc) */
 @import 'bootstrap/scss/functions';
@@ -86,21 +87,30 @@
 // ) !default;
 
 // // fonts
-// $font-family-sans-serif:
-// 	'General Sans',
-// 	system-ui,
-// 	-apple-system,
-// 	'Segoe UI',
-// 	Roboto,
-// 	'Helvetica Neue',
-// 	'Noto Sans',
-// 	'Liberation Sans',
-// 	Arial,
-// 	sans-serif,
-// 	'Apple Color Emoji',
-// 	'Segoe UI Emoji',
-// 	'Segoe UI Symbol',
-// 	'Noto Color Emoji';
+$font-family-sans-serif:
+	'Switzer',
+	system-ui,
+	-apple-system,
+	'Segoe UI',
+	Roboto,
+	'Helvetica Neue',
+	'Noto Sans',
+	'Liberation Sans',
+	Arial,
+	sans-serif,
+	'Apple Color Emoji',
+	'Segoe UI Emoji',
+	'Segoe UI Symbol',
+	'Noto Color Emoji';
+
+$headings-font-family:
+	'Rowan',
+	'Times New Roman',
+	Times,
+	serif,
+	system-ui,
+	-apple-system,
+	'Segoe UI';
 
 // $font-family-serif:
 // 	'Libre Caslon',
