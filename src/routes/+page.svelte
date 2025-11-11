@@ -12,15 +12,22 @@
 
 	let interfaceState = getInterface();
 
-	const groups = $derived(
-		[...database.groups[interfaceState.groupDimension].all()].sort((a, b) => {
-			if (interfaceState.groupDimension === 'period') {
-				return true;
-			} else {
-				return descending(a.value.count, b.value.count);
-			}
-		})
-	);
+	const groups = $derived.by(() => {
+		if (interfaceState.groupDimension === 'none') {
+			return [{ key: 'none', value: { items: [...database.items] } }];
+		} else {
+			return [...database.groups[interfaceState.groupDimension].all()].filter(
+				(d) => d.value.count > 0
+			);
+			// .sort((a, b) => {
+			// 	if (interfaceState.groupDimension === 'period') {
+			// 		return true;
+			// 	} else {
+			// 		return descending(a.value.count, b.value.count);
+			// 	}
+			// });
+		}
+	});
 
 	const extentX = $derived.by(() => extent([...database.items], (d) => d.date));
 </script>
