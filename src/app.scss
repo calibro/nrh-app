@@ -1,0 +1,296 @@
+// @font-face {
+// 	font-family: 'General Sans';
+// 	src:
+// 		url('./fonts/GeneralSans-Variable.woff2') format('woff2'),
+// 		url('./fonts/GeneralSans-Variable.woff') format('woff'),
+// 		url('./fonts/GeneralSans-Variable.ttf') format('truetype');
+// 	font-weight: 200 700;
+// 	font-display: swap;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'General Sans';
+// 	src:
+// 		url('./fonts/GeneralSans-VariableItalic.woff2') format('woff2'),
+// 		url('./fonts/GeneralSans-VariableItalic.woff') format('woff'),
+// 		url('./fonts/GeneralSans-VariableItalic.ttf') format('truetype');
+// 	font-weight: 200 700;
+// 	font-display: swap;
+// 	font-style: italic;
+// }
+
+// @font-face {
+// 	font-family: 'Libre Caslon';
+// 	src: url('./fonts/LibreCaslon-regular.woff') format('woff');
+// 	font-weight: normal;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Libre Caslon';
+// 	src: url('./fonts/LibreCaslon-italic.woff') format('woff');
+// 	font-weight: normal;
+// 	font-style: italic;
+// }
+
+// @font-face {
+// 	font-family: 'Libre Caslon';
+// 	src: url('./fonts/LibreCaslon-bold.woff') format('woff');
+// 	font-weight: bold;
+// 	font-style: normal;
+// }
+
+/* 1. Include functions first (so you can manipulate colors, SVGs, calc, etc) */
+@import 'bootstrap/scss/functions';
+/* 2. Include any default variable overrides here */
+
+// // colors
+// $body-bg: #f9f7f5;
+// $body-color: #4b3e30;
+// $primary: #ded2ca;
+
+// $blue: $e_blue; //blue
+// $indigo: $e_indigo; // light blue
+// $purple: $e_purple; //purple
+// $pink: $e_pink; //pink
+// $red: $e_red; //red
+// $orange: $e_orange; //orange
+// $yellow: $e_yellow; //yellow
+// $green: $e_green; //green
+// $teal: $e_teal; //teal
+// $gray: $e_gray; //gray
+
+// // new color brown
+// $brown: $e_brown; //brown
+// $brown-100: tint-color($brown, 80%) !default;
+// $brown-200: tint-color($brown, 60%) !default;
+// $brown-300: tint-color($brown, 40%) !default;
+// $brown-400: tint-color($brown, 20%) !default;
+// $brown-500: $brown !default;
+// $brown-600: shade-color($brown, 20%) !default;
+// $brown-700: shade-color($brown, 40%) !default;
+// $brown-800: shade-color($brown, 60%) !default;
+// $brown-900: shade-color($brown, 80%) !default;
+
+// $browns: (
+// 	'brown-100': $brown-100,
+// 	'brown-200': $brown-200,
+// 	'brown-300': $brown-300,
+// 	'brown-400': $brown-400,
+// 	'brown-500': $brown-500,
+// 	'brown-600': $brown-600,
+// 	'brown-700': $brown-700,
+// 	'brown-800': $brown-800,
+// 	'brown-900': $brown-900
+// ) !default;
+
+// // fonts
+// $font-family-sans-serif:
+// 	'General Sans',
+// 	system-ui,
+// 	-apple-system,
+// 	'Segoe UI',
+// 	Roboto,
+// 	'Helvetica Neue',
+// 	'Noto Sans',
+// 	'Liberation Sans',
+// 	Arial,
+// 	sans-serif,
+// 	'Apple Color Emoji',
+// 	'Segoe UI Emoji',
+// 	'Segoe UI Symbol',
+// 	'Noto Color Emoji';
+
+// $font-family-serif:
+// 	'Libre Caslon',
+// 	'Times New Roman',
+// 	Times,
+// 	serif,
+// 	system-ui,
+// 	-apple-system,
+// 	'Segoe UI';
+
+// $font-family-base: $font-family-serif;
+
+// $component-active-bg: $body-color !default;
+
+/* 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets) */
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+/* 4. Include any default map overrides here */
+
+// $accordion-button-active-bg: var(--#{$prefix}primary);
+// $accordion-border-radius: 0px;
+// $accordion-inner-border-radius: 0px;
+
+// $modal-backdrop-bg: rgba(0, 0, 0, $modal-backdrop-opacity);
+
+// $colors: map-merge(
+// 	$colors,
+// 	(
+// 		'brown': $brown
+// 	)
+// );
+
+// $theme-colors: map-merge($theme-colors, $colors);
+
+$custom-sizes: (
+	7: 0.875rem
+);
+
+$font-sizes: map-merge($font-sizes, $custom-sizes);
+
+/* 5. Include remainder of required parts */
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+/* 6. Optionally include any other parts as needed */
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/accordion';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/images';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/badge';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/modal';
+@import 'bootstrap/scss/close';
+@import 'bootstrap/scss/helpers';
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'font-family':
+// 			map-merge(
+// 				map-get($utilities, 'font-family'),
+// 				(
+// 					values:
+// 						map-merge(
+// 							map-get(map-get($utilities, 'font-family'), 'values'),
+// 							(
+// 								sans-serif: var(--#{$prefix}font-sans-serif)
+// 							)
+// 						)
+// 				)
+// 			)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'max-viewport-width': (
+// 			property: max-width,
+// 			class: max-vw,
+// 			values: (
+// 				100: 100vw,
+// 				50: 50vw
+// 			)
+// 		)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'min-height': (
+// 			property: min-height,
+// 			class: min-h,
+// 			values: (
+// 				100: 100%
+// 			)
+// 		)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'border':
+// 			map-merge(
+// 				map-get($utilities, 'border'),
+// 				(
+// 					responsive: true
+// 				)
+// 			)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'border-top':
+// 			map-merge(
+// 				map-get($utilities, 'border-top'),
+// 				(
+// 					responsive: true
+// 				)
+// 			)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'border-bottom':
+// 			map-merge(
+// 				map-get($utilities, 'border-bottom'),
+// 				(
+// 					responsive: true
+// 				)
+// 			)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'border-top':
+// 			map-merge(
+// 				map-get($utilities, 'border-top'),
+// 				(
+// 					responsive: true
+// 				)
+// 			)
+// 	)
+// );
+
+// $utilities: map-merge(
+// 	$utilities,
+// 	(
+// 		'font-size':
+// 			map-merge(
+// 				map-get($utilities, 'font-size'),
+// 				(
+// 					responsive: true
+// 				)
+// 			)
+// 	)
+// );
+
+@import 'bootstrap/scss/utilities/api';
+
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+body {
+	/* Support for all WebKit browsers. */
+	-webkit-font-smoothing: antialiased;
+	/* Support for Safari and Chrome. */
+	text-rendering: optimizeLegibility;
+	/* Support for Firefox. */
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
