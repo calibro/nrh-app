@@ -27,6 +27,10 @@
 	let displayRangeMin = $state();
 	let displayRangeMax = $state();
 
+	const hasFilter = $derived.by(() => {
+		return displayRangeMin !== minX || displayRangeMax !== maxX;
+	});
+
 	function reset() {
 		displayRangeMin = minX;
 		displayRangeMax = maxX;
@@ -71,5 +75,10 @@
 				bind:value={displayRangeMax}
 			/>
 		</div>
+		{#if hasFilter}
+			<div class="ms-2 p-1 bg-warning border border-light rounded-circle">
+				<span class="visually-hidden">Filter active</span>
+			</div>
+		{/if}
 	</div>
 </div>

@@ -34,13 +34,13 @@
 			.range([0, wrapperWidth - margins.left - margins.right])
 	);
 
-	let xScaleTime = $derived(
+	const xScaleTime = $derived(
 		scaleTime()
 			.domain(extentX.map((d) => new Date(d, 0, 1)))
 			.rangeRound([0, wrapperWidth - margins.left - margins.right])
 	);
 
-	let xAxis = $derived(
+	const xAxis = $derived(
 		axisBottom()
 			.scale(xScaleTime)
 			.tickSize(-(innerHeight.current || 0))
@@ -95,26 +95,23 @@
 		</g>
 	</svg>
 	<svg class="axisSvg position-fixed top-0" width={wrapperWidth} height={innerHeight.current || 0}>
-		<g transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})">
-			<rect
-				x="0"
-				y="0"
-				width={wrapperWidth - margins.left - margins.right}
-				height={marginBottom}
-				fill="white"
-			/>
+		<g transform="translate(0,{(innerHeight.current || 0) - marginBottom})">
+			<rect x="0" y="0" width={wrapperWidth} height={marginBottom} fill="white" />
 		</g>
 		<g
 			class="axis fs-7"
 			bind:this={xAxisG}
 			transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})"
 		/>
+		<g transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})">
+			<text x="0" y="-4" font-size="0.85rem" fill-opacity="0.65">Publication date →</text>
+		</g>
 	</svg>
 </div>
 
 <style>
 	.axisSvg {
-		left: calc(300px + 12px); /* Same as sidebar width */
+		left: calc(300px + 12px);
 		pointer-events: none;
 	}
 	.axis :global(.tick text) {

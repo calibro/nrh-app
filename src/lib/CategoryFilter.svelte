@@ -43,7 +43,7 @@
 		<div class="d-flex align-items-center gap-1 px-2">
 			<div class="text-capitalize">{dimension}s</div>
 			{#if selection.length}
-				<div class="p-1 bg-primary border border-light rounded-circle">
+				<div class="p-1 bg-warning border border-light rounded-circle">
 					<span class="visually-hidden">Filter active</span>
 				</div>
 			{/if}

@@ -3,6 +3,7 @@
 	import { getInterface } from '$lib/interface.svelte.js';
 	import Filters from '$lib/Filters.svelte';
 	import Legend from '$lib/Legend.svelte';
+	import Fullscreen from '$lib/Fullscreen.svelte';
 
 	let interfaceState = getInterface();
 
@@ -33,11 +34,7 @@
 		<Filters />
 	</div>
 	<div class="mt-auto">
-		<button
-			class="btn btn-link btn-sm text-dark"
-			onclick={toggleFullscreen}
-			aria-label="view full screen"><i class="bi bi-arrows-fullscreen"></i></button
-		>View in full screen
+		<Fullscreen />
 	</div>
 </div>
 

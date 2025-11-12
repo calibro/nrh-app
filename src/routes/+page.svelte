@@ -49,8 +49,9 @@
 	}
 
 	.main-content {
-		margin-left: 300px; /* Same as sidebar width */
+		margin-left: 300px;
 		flex: 1;
+		overflow: hidden;
 	}
 
 	.min-height-100 {
