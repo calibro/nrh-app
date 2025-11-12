@@ -14,6 +14,6 @@
 	height={(contentRect?.height || 0) + padding * 2}
 	fill="#737070"
 ></rect>
-<text bind:contentRect fill="white" font-size="0.85rem" x={0} y={0} alignment-baseline="hanging"
+<text bind:contentRect fill="white" font-size="0.85rem" x={0} y={0} dominant-baseline="hanging"
 	>{key || 'Not set'} [{count}]</text
 >

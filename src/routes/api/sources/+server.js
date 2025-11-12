@@ -1,6 +1,5 @@
 import data from '$lib/assets/nrh.jsonl?raw';
 import { json } from '@sveltejs/kit'
-import { title } from 'process';
 
 export async function GET() {
     const sources = data
