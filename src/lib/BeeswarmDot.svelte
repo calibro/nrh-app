@@ -80,6 +80,11 @@
 		stroke: #005ab5;
 	}
 
+	.source:hover {
+		fill-opacity: 1;
+		stroke: black !important;
+	}
+
 	.tooltipContent {
 		width: 440px;
 		height: 150px;

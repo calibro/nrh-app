@@ -21,12 +21,16 @@
 
 	let xAxisG;
 
+	const chartHeight = $derived.by(() => (innerHeight.current || 0) - margins.top - margins.bottom);
+
 	let beeswarmHeight = $derived.by(() => {
-		const _height = (innerHeight.current || 0) / data.length;
+		const _height = chartHeight / data.length;
 		return _height < minHeight ? minHeight : _height;
 	});
 
-	let svgHeight = $derived.by(() => beeswarmHeight * data.length || 0);
+	let svgHeight = $derived.by(
+		() => beeswarmHeight * data.length + margins.top + margins.bottom || 0
+	);
 
 	const x = $derived(
 		scaleLinear()
