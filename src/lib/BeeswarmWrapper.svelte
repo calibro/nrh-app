@@ -3,12 +3,20 @@
 	import { scaleLinear, scaleTime } from 'd3-scale';
 	import { axisBottom } from 'd3-axis';
 	import { select } from 'd3-selection';
+	import { descending } from 'd3-array';
 	import 'd3-transition';
 	import BeeswarmDot from '$lib/BeeswarmDot.svelte';
 	import BeeswarmLabel from '$lib/BeeswarmLabel.svelte';
 	import { dodgeCircles } from '$lib/beeswarm.js';
+	import { watch } from 'runed';
+	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
+	import { getInterface } from '$lib/interface.svelte.js';
 
 	const { data, extentX } = $props();
+
+	let interfaceState = getInterface();
+	let database = getDatabaseContext();
+	let groups = $state([]);
 
 	const minHeight = 200;
 	const radius = 4;
@@ -24,12 +32,12 @@
 	const chartHeight = $derived.by(() => (innerHeight.current || 0) - margins.top - margins.bottom);
 
 	let beeswarmHeight = $derived.by(() => {
-		const _height = chartHeight / data.length;
+		const _height = chartHeight / groups.length;
 		return _height < minHeight ? minHeight : _height;
 	});
 
 	let svgHeight = $derived.by(
-		() => beeswarmHeight * data.length + margins.top + margins.bottom || 0
+		() => beeswarmHeight * groups.length + margins.top + margins.bottom || 0
 	);
 
 	const x = $derived(
@@ -56,7 +64,7 @@
 	// Calculate all positions at the wrapper level
 	const allDots = $derived.by(() => {
 		const dots = [];
-		data.forEach((group, groupIndex) => {
+		groups.forEach((group, groupIndex) => {
 			const dodgedData = dodgeCircles(group.value.items, {
 				x: (d) => x(d.date),
 				r: radius,
@@ -77,6 +85,25 @@
 		return dots;
 	});
 
+	watch(
+		() => database.groups[interfaceState.groupDimension],
+		(group) => {
+			if (interfaceState.groupDimension === 'none') {
+				groups = [{ key: 'none', value: { items: [...database.items] } }];
+			} else {
+				groups = [...group.all()]
+					.filter((d) => d.value.count > 0)
+					.sort((a, b) => {
+						if (interfaceState.groupDimension === 'period') {
+							return true;
+						} else {
+							return descending(a.value.count, b.value.count);
+						}
+					});
+			}
+		}
+	);
+
 	$effect(() => {
 		if (xAxisG) select(xAxisG).transition().duration(300).call(xAxis);
 	});
@@ -84,7 +111,7 @@
 
 <div class="w-100 h-100 position-relative" bind:clientWidth={wrapperWidth}>
 	<svg width={wrapperWidth} height={svgHeight} class="position-relative">
-		{#each data as group, index (group.key)}
+		{#each groups as group, index}
 			{#if group.key !== 'none'}
 				<g transform={`translate(${margins.left}, ${index * beeswarmHeight + margins.top})`}>
 					<BeeswarmLabel key={group.key} count={group.value.count} />
@@ -98,7 +125,7 @@
 			{/each}
 		</g>
 	</svg>
-	<svg class="axisSvg position-fixed top-0" width={wrapperWidth} height={innerHeight.current || 0}>
+	<svg class="axisSvg top-0" width={wrapperWidth} height={innerHeight.current || 0}>
 		<g transform="translate(0,{(innerHeight.current || 0) - marginBottom})">
 			<rect x="0" y="0" width={wrapperWidth} height={marginBottom} fill="white" />
 		</g>
@@ -115,7 +142,8 @@
 
 <style>
 	.axisSvg {
-		left: calc(300px + 12px);
+		left: 12px;
+		position: absolute;
 		pointer-events: none;
 	}
 	.axis :global(.tick text) {
@@ -129,5 +157,12 @@
 	.axis :global(path.domain) {
 		stroke-opacity: 0.25;
 		/* stroke-dasharray: 2, 2; */
+	}
+
+	@media (min-width: 768px) {
+		.axisSvg {
+			left: calc(300px + 12px);
+			position: fixed;
+		}
 	}
 </style>

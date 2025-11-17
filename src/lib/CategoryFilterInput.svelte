@@ -16,7 +16,7 @@
 
 <div class="position-relative px-2 py-1 border-bottom">
 	<div
-		class="bar position-absolute top-0 start-0 h-100 bg-secondary-subtle"
+		class="bar position-absolute top-0 start-0 h-100 bg-secondary-subtle border-end border-dark-subtle"
 		style="width: {(count / max) * 100}%;"
 	></div>
 	<div class="form-check position-relative">

@@ -43,18 +43,32 @@
 
 <style>
 	.layout {
-		display: flex;
+		display: block;
 		min-height: 100vh;
-		overflow: hidden;
+		overflow: scroll;
 	}
 
 	.main-content {
-		margin-left: 300px;
+		margin-left: 0;
 		flex: 1;
 		overflow: hidden;
+		width: 768px;
 	}
 
 	.min-height-100 {
 		height: 100%;
+	}
+
+	@media (min-width: 768px) {
+		.layout {
+			display: flex;
+			overflow: hidden;
+		}
+
+		.main-content {
+			margin-left: 300px;
+			overflow: hidden;
+			width: unset;
+		}
 	}
 </style>

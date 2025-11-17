@@ -12,8 +12,8 @@
 
 	watch(
 		() => database.groups[dimension],
-		(subjectGroup) => {
-			categories = subjectGroup.all();
+		(group) => {
+			categories = group.all();
 		}
 	);
 
@@ -41,7 +41,7 @@
 		class="position-sticky top-0 z-1 d-flex align-items-center justify-content-between border-bottom border-top bg-light"
 	>
 		<div class="d-flex align-items-center gap-1 px-2">
-			<div class="text-capitalize">{dimension}s</div>
+			<div class="text-capitalize">{dimension}</div>
 			{#if selection.length}
 				<div class="p-1 bg-warning border border-light rounded-circle">
 					<span class="visually-hidden">Filter active</span>

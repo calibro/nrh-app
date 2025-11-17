@@ -1,4 +1,4 @@
-let groupDimension = $state('country')
+let groupDimension = $state('none')
 
 export const getInterface = () => {
 
