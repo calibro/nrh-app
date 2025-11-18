@@ -4,14 +4,9 @@
 	import Filters from '$lib/Filters.svelte';
 	import Legend from '$lib/Legend.svelte';
 	import Fullscreen from '$lib/Fullscreen.svelte';
+	import Howto from '$lib/Howto.svelte';
 
 	let interfaceState = getInterface();
-
-	function toggleFullscreen() {
-		if (!document.fullscreenElement) {
-			document.documentElement.requestFullscreen();
-		}
-	}
 </script>
 
 <div
@@ -34,13 +29,18 @@
 		<Filters />
 	</div>
 	<div class="mt-auto">
-		<Fullscreen />
+		<div>
+			<Howto />
+		</div>
+		<div>
+			<Fullscreen />
+		</div>
 	</div>
 </div>
 
 <style>
 	#sidebar {
-		width: 300px;
+		width: var(--nrh-sidebar-width);
 		height: 100vh;
 	}
 </style>

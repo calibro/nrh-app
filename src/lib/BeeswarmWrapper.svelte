@@ -12,7 +12,7 @@
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 	import { getInterface } from '$lib/interface.svelte.js';
 
-	const { data, extentX } = $props();
+	const { extentX } = $props();
 
 	let interfaceState = getInterface();
 	let database = getDatabaseContext();
@@ -91,8 +91,25 @@
 			if (interfaceState.groupDimension === 'none') {
 				groups = [{ key: 'none', value: { items: [...database.items] } }];
 			} else {
+				const countryFilters = [];
+				if (interfaceState.groupDimension === 'country') {
+					database.dims[interfaceState.groupDimension].top(Infinity).forEach((item) => {
+						const value = item[interfaceState.groupDimension];
+						if (!countryFilters.includes(value)) {
+							countryFilters.push(value);
+						}
+					});
+				}
+
 				groups = [...group.all()]
 					.filter((d) => d.value.count > 0)
+					.filter((d) => {
+						if (interfaceState.groupDimension === 'country') {
+							return countryFilters.includes(d.key);
+						} else {
+							return true;
+						}
+					})
 					.sort((a, b) => {
 						if (interfaceState.groupDimension === 'period') {
 							return true;
@@ -161,7 +178,7 @@
 
 	@media (min-width: 768px) {
 		.axisSvg {
-			left: calc(300px + 12px);
+			left: calc(var(--nrh-sidebar-width) + 12px);
 			position: fixed;
 		}
 	}

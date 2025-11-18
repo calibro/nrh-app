@@ -33,10 +33,9 @@
 </script>
 
 <button
-	class="btn btn-link btn-sm text-dark"
+	class="btn btn-outline-dark d-flex align-items-center gap-1 mb-2"
 	onclick={toggleFullscreen}
-	aria-label={isFullscreen ? 'exit full screen' : 'view full screen'}
 >
 	<i class="bi bi-arrows-{isFullscreen ? 'angle-contract' : 'fullscreen'}"></i>
+	{isFullscreen ? 'Exit' : 'View in'} full screen
 </button>
-{isFullscreen ? 'Exit' : 'View in'} full screen
