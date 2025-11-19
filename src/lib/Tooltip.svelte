@@ -8,6 +8,7 @@
 		trigger,
 		rootProps = {},
 		triggerProps = {},
+		portalProps = {},
 		onOpenChange,
 		...restProps
 	} = $props();
@@ -25,7 +26,7 @@
 			{@render trigger(props)}
 		{/snippet}
 	</Tooltip.Trigger>
-	<Tooltip.Portal>
+	<Tooltip.Portal {...portalProps}>
 		<Tooltip.Content sideOffset={3}>
 			<!-- <Tooltip.Arrow /> -->
 

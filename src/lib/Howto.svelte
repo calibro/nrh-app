@@ -16,24 +16,33 @@
 		How to use it?
 	{/snippet}
 	{#snippet description()}
-		<p>
-			[fake text] Exploring the Sources is a digital tool designed for educators, researchers, and
-			scholars who wish to explore a range of thematic proposals for teaching and research.
-		</p>
 		<h4>Information</h4>
+		<p>
+			On this page you can explore <b>{database.records.length} sources</b> related to the Natural
+			Rights History. Each source is represented by a circle
+			<span class="d-inline-block p-1 bg-secondary bg-opacity-75 border border-dark rounded-circle"
+			></span>, the color is the source type:
+			<span class="d-inline-block p-1 bg-danger bg-opacity-75 border border-danger rounded-circle"
+			></span>
+			written or
+			<span class="d-inline-block p-1 bg-primary bg-opacity-75 border border-primary rounded-circle"
+			></span>
+			iconographic. By hovering each circle you can see a tooltip containing the details, such as authors,
+			title and publication date and a preview image. You also have the possibility to open the datail
+			page by clicking on "open in collection". The sources are plotted along the horizontal axis according
+			to their <b>publication date</b>.
+		</p>
+		<h4>Grouping</h4>
+		<p>
+			The sources can be grouped by 2 different dimensions: <b>periods</b> and <b>countries</b>.
+			Groups are ordered by the number of sources they contain, from the highest to the lowest.
+		</p>
+		<h4>Filtering</h4>
+		<p>
+			You can filter the sources by various criteria to narrow down the results and focus on
+			specific subsets of data. The four filters: <b>Publication date</b>, <b>Subjects</b>,
+			<b>Authors</b>, <b>Languages</b>
+			and <b>Countries</b> can be concatenated.
+		</p>
 	{/snippet}
-	<!-- {#snippet footer()}
-    {#if fetcherDatasource.isLoading}
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    {/if}
-    <button
-      class="btn btn-success"
-      onclick={cancelImport}
-      disabled={fetcherDatasource.isLoading}
-    >
-      {t("common.confirm", { fallback: "Confirm" })}
-    </button>
-  {/snippet} -->
 </AlertDialog>
