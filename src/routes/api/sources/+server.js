@@ -23,6 +23,5 @@ export async function GET() {
                 provenance: d.provenance_ssi
             }
         })
-
     return json(sources);
 }

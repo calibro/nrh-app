@@ -3,7 +3,7 @@
 	import { scaleLinear, scaleTime } from 'd3-scale';
 	import { axisBottom } from 'd3-axis';
 	import { select } from 'd3-selection';
-	import { descending } from 'd3-array';
+	import { descending, extent, groups as d3Groups } from 'd3-array';
 	import 'd3-transition';
 	import BeeswarmDot from '$lib/BeeswarmDot.svelte';
 	import BeeswarmLabel from '$lib/BeeswarmLabel.svelte';
@@ -65,6 +65,7 @@
 	// Calculate all positions at the wrapper level
 	const allDots = $derived.by(() => {
 		const dots = [];
+		let offset = 0;
 		groups.forEach((group, groupIndex) => {
 			const dodgedData = dodgeCircles(group.value.items, {
 				x: (d) => x(d.date),
@@ -73,18 +74,42 @@
 				anchor: 'middle'
 			});
 
+			const extentY = extent(dodgedData, (d) => d.y).map((d) => Math.abs(d) + radius + padding);
+			const extentYRange = extentY[1] + extentY[0];
+			const height = extentYRange > beeswarmHeight ? extentYRange : beeswarmHeight;
+
 			dodgedData.forEach((element) => {
 				dots.push({
 					id: element.data.id,
 					element,
 					groupIndex,
 					groupKey: group.key,
-					yOffset: groupIndex * beeswarmHeight
+					// yOffset: groupIndex * beeswarmHeight
+					yOffset: offset,
+					height
 				});
 			});
+			// group.yOffset = offset;
+			// group.height = height;
+			console.log('offset', offset, 'height', height, 'group', group.key, group.value.count);
+			offset = offset + height;
 		});
 		return dots;
 	});
+
+	let allLabels = $derived.by(() => {
+		console.log(allDots);
+		return d3Groups(allDots, (d) => d.groupKey).map(([key, dots]) => {
+			return {
+				key,
+				count: dots.length,
+				heigth: dots[0].height,
+				yOffset: dots[0].yOffset
+			};
+		});
+	});
+
+	$inspect(allLabels);
 
 	watch(
 		() => database.groups[interfaceState.groupDimension],
@@ -130,22 +155,17 @@
 <Tooltip.Provider delayDuration={200}>
 	<div class="w-100 h-100 position-relative" bind:clientWidth={wrapperWidth}>
 		<svg width={wrapperWidth} height={svgHeight} class="position-relative">
-			{#each groups as group, index}
+			{#each allLabels as group, index}
 				{#if group.key !== 'none'}
-					<g transform={`translate(${margins.left}, ${index * beeswarmHeight + margins.top})`}>
-						<BeeswarmLabel key={group.key} count={group.value.count} />
+					<g transform={`translate(${margins.left}, ${group.yOffset + margins.top})`}>
+						<BeeswarmLabel key={group.key} count={group.count} />
 					</g>
 				{/if}
 			{/each}
 
 			<g transform={`translate(${margins.left}, ${margins.top})`}>
 				{#each allDots as dot (dot.id)}
-					<BeeswarmDot
-						element={dot.element}
-						{radius}
-						height={beeswarmHeight}
-						yOffset={dot.yOffset}
-					/>
+					<BeeswarmDot element={dot.element} {radius} height={dot.height} yOffset={dot.yOffset} />
 				{/each}
 			</g>
 		</svg>
