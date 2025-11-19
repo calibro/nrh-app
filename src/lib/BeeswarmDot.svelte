@@ -21,7 +21,7 @@
 	});
 </script>
 
-<Tooltip bind:open disableHoverableContent={false}>
+<Tooltip bind:open>
 	{#snippet trigger(props)}
 		<circle
 			transition:fade
