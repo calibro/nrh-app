@@ -8,23 +8,29 @@
 		trigger,
 		rootProps = {},
 		triggerProps = {},
+		onOpenChange,
 		...restProps
 	} = $props();
+
+	function handleOpenChange(isOpen) {
+		open = isOpen;
+		onOpenChange?.(isOpen);
+	}
 </script>
 
-<Tooltip.Provider {delayDuration} {...restProps}>
-	<Tooltip.Root bind:open {...rootProps}>
-		<Tooltip.Trigger {...triggerProps}>
-			{#snippet child({ props })}
-				{@render trigger(props)}
-			{/snippet}
-		</Tooltip.Trigger>
-		<Tooltip.Portal>
-			<Tooltip.Content sideOffset={3}>
-				<!-- <Tooltip.Arrow /> -->
+<!-- <Tooltip.Provider {delayDuration} {...restProps}> -->
+<Tooltip.Root bind:open {...rootProps} onOpenChange={handleOpenChange}>
+	<Tooltip.Trigger {...triggerProps}>
+		{#snippet child({ props })}
+			{@render trigger(props)}
+		{/snippet}
+	</Tooltip.Trigger>
+	<Tooltip.Portal>
+		<Tooltip.Content sideOffset={3}>
+			<!-- <Tooltip.Arrow /> -->
 
-				{@render children?.()}
-			</Tooltip.Content>
-		</Tooltip.Portal>
-	</Tooltip.Root>
-</Tooltip.Provider>
+			{@render children?.()}
+		</Tooltip.Content>
+	</Tooltip.Portal>
+</Tooltip.Root>
+<!-- </Tooltip.Provider> -->

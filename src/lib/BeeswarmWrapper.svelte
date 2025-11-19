@@ -9,6 +9,7 @@
 	import BeeswarmLabel from '$lib/BeeswarmLabel.svelte';
 	import { dodgeCircles } from '$lib/beeswarm.js';
 	import { watch } from 'runed';
+	import { Tooltip } from 'bits-ui';
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 	import { getInterface } from '$lib/interface.svelte.js';
 
@@ -126,36 +127,43 @@
 	});
 </script>
 
-<div class="w-100 h-100 position-relative" bind:clientWidth={wrapperWidth}>
-	<svg width={wrapperWidth} height={svgHeight} class="position-relative">
-		{#each groups as group, index}
-			{#if group.key !== 'none'}
-				<g transform={`translate(${margins.left}, ${index * beeswarmHeight + margins.top})`}>
-					<BeeswarmLabel key={group.key} count={group.value.count} />
-				</g>
-			{/if}
-		{/each}
-
-		<g transform={`translate(${margins.left}, ${margins.top})`}>
-			{#each allDots as dot (dot.id)}
-				<BeeswarmDot element={dot.element} {radius} height={beeswarmHeight} yOffset={dot.yOffset} />
+<Tooltip.Provider delayDuration={200}>
+	<div class="w-100 h-100 position-relative" bind:clientWidth={wrapperWidth}>
+		<svg width={wrapperWidth} height={svgHeight} class="position-relative">
+			{#each groups as group, index}
+				{#if group.key !== 'none'}
+					<g transform={`translate(${margins.left}, ${index * beeswarmHeight + margins.top})`}>
+						<BeeswarmLabel key={group.key} count={group.value.count} />
+					</g>
+				{/if}
 			{/each}
-		</g>
-	</svg>
-	<svg class="axisSvg top-0" width={wrapperWidth} height={innerHeight.current || 0}>
-		<g transform="translate(0,{(innerHeight.current || 0) - marginBottom})">
-			<rect x="0" y="0" width={wrapperWidth} height={marginBottom} fill="white" />
-		</g>
-		<g
-			class="axis fs-7"
-			bind:this={xAxisG}
-			transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})"
-		/>
-		<g transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})">
-			<text x="0" y="-4" font-size="0.85rem" fill-opacity="0.65">Publication date →</text>
-		</g>
-	</svg>
-</div>
+
+			<g transform={`translate(${margins.left}, ${margins.top})`}>
+				{#each allDots as dot (dot.id)}
+					<BeeswarmDot
+						element={dot.element}
+						{radius}
+						height={beeswarmHeight}
+						yOffset={dot.yOffset}
+					/>
+				{/each}
+			</g>
+		</svg>
+		<svg class="axisSvg top-0" width={wrapperWidth} height={innerHeight.current || 0}>
+			<g transform="translate(0,{(innerHeight.current || 0) - marginBottom})">
+				<rect x="0" y="0" width={wrapperWidth} height={marginBottom} fill="white" />
+			</g>
+			<g
+				class="axis fs-7"
+				bind:this={xAxisG}
+				transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})"
+			/>
+			<g transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})">
+				<text x="0" y="-4" font-size="0.85rem" fill-opacity="0.65">Publication date →</text>
+			</g>
+		</svg>
+	</div>
+</Tooltip.Provider>
 
 <style>
 	.axisSvg {
