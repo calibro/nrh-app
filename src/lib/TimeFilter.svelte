@@ -40,6 +40,7 @@
 	watch(
 		[() => displayRangeMin, () => displayRangeMax],
 		([displayRangeMin, displayRangeMax]) => {
+			if (displayRangeMax === maxX && displayRangeMin === minX) return;
 			database.dims['date'].filterRange([displayRangeMin, displayRangeMax]);
 		},
 		{ lazy: true }
