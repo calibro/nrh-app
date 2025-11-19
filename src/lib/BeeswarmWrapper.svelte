@@ -20,9 +20,9 @@
 	let groups = $state([]);
 
 	const minHeight = 200;
-	const radius = 4;
+	const radius = 5;
 	const padding = 2;
-	const r = radius * 2 + padding;
+	// const r = radius * 2 + padding;
 	const marginBottom = 25;
 	const margins = { top: 16, right: 16, bottom: marginBottom, left: 16 };
 
@@ -36,10 +36,6 @@
 		const _height = chartHeight / groups.length;
 		return _height < minHeight ? minHeight : _height;
 	});
-
-	let svgHeight = $derived.by(
-		() => beeswarmHeight * groups.length + margins.top + margins.bottom || 0
-	);
 
 	const x = $derived(
 		scaleLinear()
@@ -63,8 +59,9 @@
 	);
 
 	// Calculate all positions at the wrapper level
-	const allDots = $derived.by(() => {
+	const allElements = $derived.by(() => {
 		const dots = [];
+		const labels = [];
 		let offset = 0;
 		groups.forEach((group, groupIndex) => {
 			const dodgedData = dodgeCircles(group.value.items, {
@@ -74,9 +71,10 @@
 				anchor: 'middle'
 			});
 
-			const extentY = extent(dodgedData, (d) => d.y).map((d) => Math.abs(d) + radius + padding);
+			const extentY = extent(dodgedData, (d) => d.y).map((d) => Math.abs(d));
 			const extentYRange = extentY[1] + extentY[0];
-			const height = extentYRange > beeswarmHeight ? extentYRange : beeswarmHeight;
+			const height =
+				extentYRange > beeswarmHeight ? extentYRange + (radius + padding) * 4 : beeswarmHeight;
 
 			dodgedData.forEach((element) => {
 				dots.push({
@@ -84,32 +82,28 @@
 					element,
 					groupIndex,
 					groupKey: group.key,
-					// yOffset: groupIndex * beeswarmHeight
 					yOffset: offset,
 					height
 				});
 			});
-			// group.yOffset = offset;
-			// group.height = height;
-			console.log('offset', offset, 'height', height, 'group', group.key, group.value.count);
+
+			labels.push({
+				key: group.key,
+				count: group.value.count,
+				heigth: height,
+				yOffset: offset
+			});
 			offset = offset + height;
 		});
-		return dots;
+		return { dots, labels };
 	});
 
-	let allLabels = $derived.by(() => {
-		console.log(allDots);
-		return d3Groups(allDots, (d) => d.groupKey).map(([key, dots]) => {
-			return {
-				key,
-				count: dots.length,
-				heigth: dots[0].height,
-				yOffset: dots[0].yOffset
-			};
-		});
-	});
-
-	$inspect(allLabels);
+	let svgHeight = $derived.by(
+		() =>
+			allElements.labels.reduce((acc, group) => acc + group.heigth, 0) +
+				margins.top +
+				margins.bottom || 0
+	);
 
 	watch(
 		() => database.groups[interfaceState.groupDimension],
@@ -137,11 +131,12 @@
 						}
 					})
 					.sort((a, b) => {
-						if (interfaceState.groupDimension === 'period') {
-							return true;
-						} else {
-							return descending(a.value.count, b.value.count);
-						}
+						// if (interfaceState.groupDimension === 'period') {
+						// 	return true;
+						// } else {
+						// 	return descending(a.value.count, b.value.count);
+						// }
+						return descending(a.value.count, b.value.count);
 					});
 			}
 		}
@@ -155,16 +150,28 @@
 <Tooltip.Provider delayDuration={200}>
 	<div class="w-100 h-100 position-relative" bind:clientWidth={wrapperWidth}>
 		<svg width={wrapperWidth} height={svgHeight} class="position-relative">
-			{#each allLabels as group, index}
-				{#if group.key !== 'none'}
-					<g transform={`translate(${margins.left}, ${group.yOffset + margins.top})`}>
-						<BeeswarmLabel key={group.key} count={group.count} />
-					</g>
-				{/if}
-			{/each}
+			<g transform={`translate(${0}, ${margins.top})`}>
+				{#each allElements.labels as group, index}
+					{#if group.key !== 'none'}
+						<rect
+							x="0"
+							y={group.yOffset}
+							rx="4"
+							ry="4"
+							width={wrapperWidth}
+							height={group.heigth}
+							fill={index % 2 === 0 ? 'white' : '#f8f9fa'}
+						></rect>
+
+						<g transform={`translate(0, ${group.yOffset})`}>
+							<BeeswarmLabel key={group.key} count={group.count} />
+						</g>
+					{/if}
+				{/each}
+			</g>
 
 			<g transform={`translate(${margins.left}, ${margins.top})`}>
-				{#each allDots as dot (dot.id)}
+				{#each allElements.dots as dot (dot.id)}
 					<BeeswarmDot element={dot.element} {radius} height={dot.height} yOffset={dot.yOffset} />
 				{/each}
 			</g>
