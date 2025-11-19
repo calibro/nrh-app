@@ -33,4 +33,4 @@ jobs:
           
           # Check if running
           sleep 3
-          docker ps | grep nrh-app || exit 1
+          docker ps | grep nrhapp || exit 1
