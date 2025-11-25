@@ -107,8 +107,8 @@
 	);
 
 	watch(
-		() => database.groups[interfaceState.groupDimension],
-		(group) => {
+		() => [database.groups[interfaceState.groupDimension], interfaceState.pSortDesc],
+		([group, pSortDesc]) => {
 			if (interfaceState.groupDimension === 'none') {
 				groups = [{ key: 'none', value: { items: [...database.items] } }];
 			} else {
@@ -139,15 +139,17 @@
 					})
 					.sort((a, b) => {
 						if (interfaceState.groupDimension === 'Historical Area') {
-							console.log(
-								'sorting historical area',
-								periods.map((p) => p.label).indexOf(a.key),
-								periods.map((p) => p.label).indexOf(b.key)
-							);
-							return (
-								periods.map((p) => p.label).indexOf(a.key) -
-								periods.map((p) => p.label).indexOf(b.key)
-							);
+							if (pSortDesc) {
+								return (
+									periods.map((p) => p.label).indexOf(b.key) -
+									periods.map((p) => p.label).indexOf(a.key)
+								);
+							} else {
+								return (
+									periods.map((p) => p.label).indexOf(a.key) -
+									periods.map((p) => p.label).indexOf(b.key)
+								);
+							}
 						} else {
 							return descending(a.value.count, b.value.count);
 						}

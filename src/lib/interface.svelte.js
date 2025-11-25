@@ -1,4 +1,5 @@
 let groupDimension = $state('none')
+let pSortDesc = $state(true);
 
 export const getInterface = () => {
 
@@ -8,6 +9,12 @@ export const getInterface = () => {
         },
         set groupDimension(value) {
             groupDimension = value;
+        },
+        get pSortDesc() {
+            return pSortDesc;
+        },
+        set pSortDesc(value) {
+            pSortDesc = value;
         }
     };
 };

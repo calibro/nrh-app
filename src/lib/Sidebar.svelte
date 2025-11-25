@@ -24,6 +24,21 @@
 				<option value="none">Default</option>
 			</select>
 		</div>
+		{#if interfaceState.groupDimension === 'Historical Area'}
+			<div class="mb-4">
+				<div class="form-check">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						bind:checked={interfaceState.pSortDesc}
+						id="psortdesc"
+					/>
+					<label class="form-check-label fs-7" for="psortdesc">
+						Sort Historical Areas in descending order (to be removed)
+					</label>
+				</div>
+			</div>
+		{/if}
 
 		<TimeFilter />
 		<Filters />
