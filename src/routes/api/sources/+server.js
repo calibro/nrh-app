@@ -11,15 +11,15 @@ export async function GET() {
             return {
                 id: d.id,
                 title: d.title,
-                collection: d.collection ? d.collection[0] : null,
-                author: d.creator ? d.creator[0] : null,
-                language: d.language ? d.language[0] : null,
+                collection: d.collection ? d.collection[0].trim() : null,
+                author: d.creator ? d.creator[0].trim() : null,
+                "Linguistic Area": d.language ? d.language[0].trim() : null,
                 date: +d.date,
-                type: d.type ? d.type[0] : null,
-                subject: d.subject ? d.subject : null,
+                type: d.type ? d.type[0].trim() : null,
+                "Thematic Area": d.subject ? d.subject : null,
                 thumb: d.cover_ts,
-                country: d.places_relations_tsim ? d.places_relations_tsim[0] : null,
-                period: d.event_relations_ssim ? d.event_relations_ssim[0] : null,
+                "Geographical Area": d.places_relations_tsim ? d.places_relations_tsim[0].trim() : null,
+                "Historical Area": d.event_relations_ssim ? d.event_relations_ssim[0].trim() : null,
                 provenance: d.provenance_ssi
             }
         })

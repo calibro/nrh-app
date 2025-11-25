@@ -3,7 +3,12 @@
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 
 	let database = getDatabaseContext();
-	const filtersDimensions = ['subject', 'author', 'language', 'country'];
+	const filtersDimensions = [
+		'Thematic Area',
+		'Linguistic Area',
+		'Geographical Area',
+		'Historical Area'
+	];
 
 	let filterComponents = $state({});
 

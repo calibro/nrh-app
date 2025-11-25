@@ -9,8 +9,8 @@
 	watch(
 		() => database.groups['collection'],
 		(group) => {
-			written = [...group.all()].find((d) => d.key === 'Fonti scritte');
-			iconographic = [...group.all()].find((d) => d.key === 'Fonti iconografiche');
+			written = [...group.all()].find((d) => d.key === 'Written Sources');
+			iconographic = [...group.all()].find((d) => d.key === 'Iconographic Sources');
 		}
 	);
 </script>

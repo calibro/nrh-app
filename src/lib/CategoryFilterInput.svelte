@@ -30,7 +30,7 @@
 			disabled={count === 0}
 		/>
 		<label class="form-check-label d-flex justify-content-between" for={key}>
-			<div class:fst-italic={!key}>{key || 'Not set'}</div>
+			<div class="text-truncate" class:fst-italic={!key}>{key || 'Not set'}</div>
 			<div>{count}</div>
 		</label>
 	</div>

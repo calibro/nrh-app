@@ -12,6 +12,7 @@
 	import { Tooltip } from 'bits-ui';
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 	import { getInterface } from '$lib/interface.svelte.js';
+	import { periods } from '$lib/utils.svelte.ts';
 
 	const { extentX } = $props();
 
@@ -24,7 +25,7 @@
 	const padding = 2;
 	// const r = radius * 2 + padding;
 	const marginBottom = 25;
-	const margins = { top: 16, right: 16, bottom: marginBottom, left: 16 };
+	const margins = { top: 16 + 25 - 25, right: 16, bottom: marginBottom, left: 16 };
 
 	let wrapperWidth = $state(0);
 
@@ -111,12 +112,15 @@
 			if (interfaceState.groupDimension === 'none') {
 				groups = [{ key: 'none', value: { items: [...database.items] } }];
 			} else {
-				const countryFilters = [];
-				if (interfaceState.groupDimension === 'country') {
+				const dimFilters = [];
+				if (
+					interfaceState.groupDimension === 'Geographical Area' ||
+					interfaceState.groupDimension === 'Historical Area'
+				) {
 					database.dims[interfaceState.groupDimension].top(Infinity).forEach((item) => {
 						const value = item[interfaceState.groupDimension];
-						if (!countryFilters.includes(value)) {
-							countryFilters.push(value);
+						if (!dimFilters.includes(value)) {
+							dimFilters.push(value);
 						}
 					});
 				}
@@ -124,19 +128,29 @@
 				groups = [...group.all()]
 					.filter((d) => d.value.count > 0)
 					.filter((d) => {
-						if (interfaceState.groupDimension === 'country') {
-							return countryFilters.includes(d.key);
+						if (
+							interfaceState.groupDimension === 'Geographical Area' ||
+							interfaceState.groupDimension === 'Historical Area'
+						) {
+							return dimFilters.includes(d.key);
 						} else {
 							return true;
 						}
 					})
 					.sort((a, b) => {
-						// if (interfaceState.groupDimension === 'period') {
-						// 	return true;
-						// } else {
-						// 	return descending(a.value.count, b.value.count);
-						// }
-						return descending(a.value.count, b.value.count);
+						if (interfaceState.groupDimension === 'Historical Area') {
+							console.log(
+								'sorting historical area',
+								periods.map((p) => p.label).indexOf(a.key),
+								periods.map((p) => p.label).indexOf(b.key)
+							);
+							return (
+								periods.map((p) => p.label).indexOf(a.key) -
+								periods.map((p) => p.label).indexOf(b.key)
+							);
+						} else {
+							return descending(a.value.count, b.value.count);
+						}
 					});
 			}
 		}
@@ -189,6 +203,19 @@
 				<text x="0" y="-4" font-size="0.85rem" fill-opacity="0.65">Publication date →</text>
 			</g>
 		</svg>
+		<!-- <div class="labels overflow-hidden" style="width:{wrapperWidth}px;">
+			{#each periods as period}
+				<div
+					class="position-absolute"
+					style="width:{x(period.years[1]) - x(period.years[0])}px; left:{margins.left +
+						x(period.years[0])}px;"
+				>
+					<div class=" fs-7 px-2 mx-1 rounded text-bg-secondary text-truncate">
+						{period.label}
+					</div>
+				</div>
+			{/each}
+		</div> -->
 	</div>
 </Tooltip.Provider>
 
@@ -215,6 +242,13 @@
 		.axisSvg {
 			left: calc(var(--nrh-sidebar-width) + 12px);
 			position: fixed;
+		}
+
+		.labels {
+			left: calc(var(--nrh-sidebar-width) + 12px);
+			position: fixed;
+			height: 25px;
+			top: 5px;
 		}
 	}
 </style>

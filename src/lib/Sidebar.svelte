@@ -19,8 +19,8 @@
 		<div class="mb-4">
 			<div class="text-uppercase fs-7 mb-1">Group sources by</div>
 			<select class="form-select" bind:value={interfaceState.groupDimension}>
-				<option value="country">Country</option>
-				<option value="period">Period</option>
+				<option value="Geographical Area">Geographical Area</option>
+				<option value="Historical Area">Historical Area</option>
 				<option value="none">Default</option>
 			</select>
 		</div>

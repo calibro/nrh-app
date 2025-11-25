@@ -16,10 +16,30 @@
 		How to use it?
 	{/snippet}
 	{#snippet description()}
-		<h4>Information</h4>
+		<p>
+			Data visualization is an integral component of NRH’s methodology. The cliometric approach is
+			essential for demonstrating that the metadata of sources are not an end in themselves but
+			contribute to the construction, implementation, and understanding of contexts. <b
+				>Cliometrics</b
+			>
+			is the tool that prevents metadata from becoming a source of dispersion and instead turns them
+			into a means of <b>enhancing historical knowledge</b>: computational methods can not only map
+			knowledge but also expand it, providing innovative insights for the construction,
+			implementation, and understanding of historical contexts.
+		</p>
+		<p>
+			The present data-visualization service—referring exclusively to the sources contained in the
+			digital library—was carried out by <b>Fondazione 1563</b> within the
+			<b>PNRR CHANGES Project</b>
+			(Cultural Heritage Active Innovation for Sustainable Society), <b>Spoke 3 DiLAPh</b> (Digital
+			Libraries, Archives and Philology), in collaboration with the
+			<b>Department of Historical Studies</b> of the University of Turin, and was designed and implemented
+			by Calibro.
+		</p>
+		<h5>How to read it.</h5>
 		<p>
 			On this page you can explore <b>{database.records.length} sources</b> related to the Natural
-			Rights History. Each source is represented by a circle
+			Rights History topic. Each source is represented by a circle
 			<span class="d-inline-block p-1 bg-secondary bg-opacity-75 border border-dark rounded-circle"
 			></span>, the color is the source type:
 			<span class="d-inline-block p-1 bg-danger bg-opacity-75 border border-danger rounded-circle"
@@ -32,17 +52,17 @@
 			page by clicking on "open in collection". The sources are plotted along the horizontal axis according
 			to their <b>publication date</b>.
 		</p>
-		<h4>Grouping</h4>
+		<h5>Grouping.</h5>
 		<p>
-			The sources can be grouped by 2 different dimensions: <b>periods</b> and <b>countries</b>.
-			Groups are ordered by the number of sources they contain, from the highest to the lowest.
+			The sources can be grouped by 2 different dimensions: <b>historical</b> and
+			<b>geographical</b> areas. Groups are ordered by the number of sources they contain, from the highest
+			to the lowest.
 		</p>
-		<h4>Filtering</h4>
+		<h5>Filtering.</h5>
 		<p>
 			You can filter the sources by various criteria to narrow down the results and focus on
-			specific subsets of data. The four filters: <b>Publication date</b>, <b>Subjects</b>,
-			<b>Authors</b>, <b>Languages</b>
-			and <b>Countries</b> can be concatenated.
+			specific subsets of data. The five filters: <b>publication date</b>, <b>linguistic area</b>,
+			<b>geographical area</b>, <b>linguistic area</b> and <b>thematic area</b> can be concatenated.
 		</p>
 	{/snippet}
 </AlertDialog>

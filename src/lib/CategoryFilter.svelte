@@ -3,6 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 	import CategoryFilterInput from '$lib/CategoryFilterInput.svelte';
+	import { periods } from '$lib/utils.svelte.ts';
 	const { dimension } = $props();
 
 	let database = getDatabaseContext();
@@ -13,7 +14,15 @@
 	watch(
 		() => database.groups[dimension],
 		(group) => {
-			categories = group.all();
+			categories = [...group.all()].sort((a, b) => {
+				if (dimension === 'Historical Area') {
+					return (
+						periods.map((p) => p.label).indexOf(a.key) - periods.map((p) => p.label).indexOf(b.key)
+					);
+				} else {
+					return true;
+				}
+			});
 		}
 	);
 

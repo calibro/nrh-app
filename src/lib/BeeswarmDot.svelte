@@ -26,8 +26,8 @@
 		<circle
 			transition:fade
 			class="source"
-			class:document={element.data.collection === 'Fonti scritte'}
-			class:icon={element.data.collection === 'Fonti iconografiche'}
+			class:document={element.data.collection === 'Written Sources'}
+			class:icon={element.data.collection === 'Iconographic Sources'}
 			cx={tweenedCx}
 			cy={tweenedCy}
 			r={radius}

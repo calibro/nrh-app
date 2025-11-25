@@ -11,10 +11,10 @@ export const filters = [
 	{ key: 'author', array: false, group: true },
 	{ key: 'date', array: false, group: true },
 	{ key: 'type', array: false, group: true },
-	{ key: 'subject', array: true, group: true },
-	{ key: 'country', array: false, group: true },
-	{ key: 'period', array: false, group: true },
-	{ key: 'language', array: false, group: true },
+	{ key: 'Thematic Area', array: true, group: true },
+	{ key: 'Geographical Area', array: false, group: true },
+	{ key: 'Historical Area', array: false, group: true },
+	{ key: 'Linguistic Area', array: false, group: true },
 ];
 
 let records = $state([]);
