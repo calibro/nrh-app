@@ -29,12 +29,8 @@
 		</p>
 		<p>
 			The present data-visualization service—referring exclusively to the sources contained in the
-			digital library—was carried out by <b>Fondazione 1563</b> within the
-			<b>PNRR CHANGES Project</b>
-			(Cultural Heritage Active Innovation for Sustainable Society), <b>Spoke 3 DiLAPh</b> (Digital
-			Libraries, Archives and Philology), in collaboration with the
-			<b>Department of Historical Studies</b> of the University of Turin, and was designed and implemented
-			by Calibro.
+			digital library—is designed as a dynamic tool that will be expanded with each addition to the
+			library’s corpus.
 		</p>
 		<h5>How to read it.</h5>
 		<p>
@@ -55,14 +51,16 @@
 		<h5>Grouping.</h5>
 		<p>
 			The sources can be grouped by 2 different dimensions: <b>historical</b> and
-			<b>geographical</b> areas. Groups are ordered by the number of sources they contain, from the highest
-			to the lowest.
+			<b>geographical</b> areas. Geographical groups are ordered by the number of sources they contain,
+			from the highest to the lowest while historical areas are ordered chronologically according to
+			the periods.
 		</p>
 		<h5>Filtering.</h5>
 		<p>
 			You can filter the sources by various criteria to narrow down the results and focus on
-			specific subsets of data. The five filters: <b>publication date</b>, <b>linguistic area</b>,
-			<b>geographical area</b>, <b>linguistic area</b> and <b>thematic area</b> can be concatenated.
+			specific subsets of data. The five filters: <b>publication date</b>, <b>thematic area</b>,
+			<b>linguistic area</b>,
+			<b>geographical area</b>, and <b>historical area</b> can be concatenated.
 		</p>
 	{/snippet}
 </AlertDialog>

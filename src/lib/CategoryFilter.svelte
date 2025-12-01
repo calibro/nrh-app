@@ -1,5 +1,6 @@
 <script>
 	import { watch } from 'runed';
+	import { ascending } from 'd3-array';
 	import { slide } from 'svelte/transition';
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 	import CategoryFilterInput from '$lib/CategoryFilterInput.svelte';
@@ -20,7 +21,7 @@
 						periods.map((p) => p.label).indexOf(a.key) - periods.map((p) => p.label).indexOf(b.key)
 					);
 				} else {
-					return true;
+					return ascending(a.key, b.key);
 				}
 			});
 		}
