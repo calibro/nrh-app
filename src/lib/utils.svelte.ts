@@ -1,5 +1,3 @@
-import { Label } from 'bits-ui';
-
 interface MediaQueryResult {
 	readonly current: boolean;
 }

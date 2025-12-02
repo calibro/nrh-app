@@ -12,13 +12,14 @@
 	import { Tooltip } from 'bits-ui';
 	import { getDatabaseContext } from '$lib/crossfilter.svelte.js';
 	import { getInterface } from '$lib/interface.svelte.js';
-	import { periods } from '$lib/utils.svelte.ts';
+	import { periods, mediaQuery } from '$lib/utils.svelte.ts';
 
 	const { extentX } = $props();
 
 	let interfaceState = getInterface();
 	let database = getDatabaseContext();
 	let groups = $state([]);
+	const sm = mediaQuery('(max-width: 767px)');
 
 	const minHeight = 200;
 	const radius = 5;
@@ -28,14 +29,22 @@
 	const margins = { top: 16 + 25 - 25, right: 16, bottom: marginBottom, left: 16 };
 
 	let wrapperWidth = $state(0);
+	let scrollY = $state(0);
+	let wrapperElement = $state();
 
 	let xAxisG;
 
-	const chartHeight = $derived.by(() => (innerHeight.current || 0) - margins.top - margins.bottom);
+	const chartHeight = $derived.by(
+		() => (innerHeight.current || 0) - margins.top - margins.bottom - (sm.current ? 76 : 0)
+	);
 
 	let beeswarmHeight = $derived.by(() => {
 		const _height = chartHeight / groups.length;
 		return _height < minHeight ? minHeight : _height;
+	});
+
+	const innerHeightInternal = $derived.by(() => {
+		return (innerHeight.current || 0) - (sm.current ? 76 : 0);
 	});
 
 	const x = $derived(
@@ -51,11 +60,7 @@
 	);
 
 	const xAxis = $derived(
-		axisBottom()
-			.scale(xScaleTime)
-			.tickSize(-(innerHeight.current || 0))
-			.tickPadding(8)
-			.tickSizeOuter(0)
+		axisBottom().scale(xScaleTime).tickSize(-innerHeightInternal).tickPadding(8).tickSizeOuter(0)
 		//.tickValues(xScaleTime.ticks().map((d) => d.getFullYear()))
 	);
 
@@ -161,10 +166,32 @@
 	$effect(() => {
 		if (xAxisG) select(xAxisG).transition().duration(300).call(xAxis);
 	});
+
+	// Track scroll position
+	$effect(() => {
+		if (typeof window === 'undefined') return;
+
+		const scrollContainer = wrapperElement?.parentElement.parentElement;
+		if (!scrollContainer) return;
+
+		function handleScroll() {
+			scrollY = scrollContainer.scrollTop;
+		}
+
+		scrollContainer.addEventListener('scroll', handleScroll);
+
+		return () => {
+			scrollContainer.removeEventListener('scroll', handleScroll);
+		};
+	});
 </script>
 
 <Tooltip.Provider delayDuration={200}>
-	<div class="w-100 h-100 position-relative" bind:clientWidth={wrapperWidth}>
+	<div
+		class="wrapper h-100 position-relative"
+		bind:clientWidth={wrapperWidth}
+		bind:this={wrapperElement}
+	>
 		<svg width={wrapperWidth} height={svgHeight} class="position-relative">
 			<g transform={`translate(${0}, ${margins.top})`}>
 				{#each allElements.labels as group, index}
@@ -192,36 +219,32 @@
 				{/each}
 			</g>
 		</svg>
-		<svg class="axisSvg top-0" width={wrapperWidth} height={innerHeight.current || 0}>
-			<g transform="translate(0,{(innerHeight.current || 0) - marginBottom})">
+		<svg
+			class="axisSvg"
+			style="top: {sm.current ? scrollY : 0}px;"
+			width={wrapperWidth}
+			height={innerHeightInternal}
+		>
+			<g transform="translate(0,{innerHeightInternal - marginBottom})">
 				<rect x="0" y="0" width={wrapperWidth} height={marginBottom} fill="white" />
 			</g>
 			<g
 				class="axis fs-7"
 				bind:this={xAxisG}
-				transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})"
+				transform="translate({margins.left},{innerHeightInternal - marginBottom})"
 			/>
-			<g transform="translate({margins.left},{(innerHeight.current || 0) - marginBottom})">
+			<g transform="translate({margins.left},{innerHeightInternal - marginBottom})">
 				<text x="0" y="-4" font-size="0.85rem" fill-opacity="0.65">Publication date →</text>
 			</g>
 		</svg>
-		<!-- <div class="labels overflow-hidden" style="width:{wrapperWidth}px;">
-			{#each periods as period}
-				<div
-					class="position-absolute"
-					style="width:{x(period.years[1]) - x(period.years[0])}px; left:{margins.left +
-						x(period.years[0])}px;"
-				>
-					<div class=" fs-7 px-2 mx-1 rounded text-bg-secondary text-truncate">
-						{period.label}
-					</div>
-				</div>
-			{/each}
-		</div> -->
 	</div>
 </Tooltip.Provider>
 
 <style>
+	.wrapper {
+		width: 768px;
+	}
+
 	.axisSvg {
 		left: 12px;
 		position: absolute;
@@ -246,11 +269,8 @@
 			position: fixed;
 		}
 
-		.labels {
-			left: calc(var(--nrh-sidebar-width) + 12px);
-			position: fixed;
-			height: 25px;
-			top: 5px;
+		.wrapper {
+			width: 100%;
 		}
 	}
 </style>
