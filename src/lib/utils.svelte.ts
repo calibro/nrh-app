@@ -37,5 +37,5 @@ export const periods = [
 	{ label: 'Early Modern (1650-1700)', years: [1650, 1700] },
 	{ label: 'Early Modern (1700-1750)', years: [1700, 1750] },
 	{ label: 'Early Modern (1750-1800)', years: [1750, 1800] },
-	{ label: 'Modern & Contemporary (1800-1850)', years: [1800, 1850] }
+	{ label: 'Modern & Contemporary (1800-1900)', years: [1800, 1900] }
 ];
