@@ -3,7 +3,7 @@
 	import { getInterface } from '$lib/interface.svelte.js';
 	let interfaceState = getInterface();
 
-	const baseUrl = 'https://naturalrightshistory-staging.medialibrary.it/media/schedadl.aspx?id=';
+	const baseUrl = 'https://naturalrightshistory.medialibrary.it/media/schedadl.aspx?id=';
 </script>
 
 {#if interfaceState.selectedSource}
@@ -24,7 +24,7 @@
 			<div>
 				<div class="fs-7">{interfaceState.selectedSource.data.author}</div>
 				<h6 class="mb-0 line-clamp">{interfaceState.selectedSource.data.title}</h6>
-				<div class="fs-7">{interfaceState.selectedSource.data.date}</div>
+				<div class="fs-7">{interfaceState.selectedSource.data.date_full}</div>
 			</div>
 
 			<a

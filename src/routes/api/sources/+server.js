@@ -15,6 +15,7 @@ export async function GET() {
                 author: d.creator ? d.creator[0].trim() : null,
                 "Linguistic Area": d.language ? d.language[0].trim() : null,
                 date: +d.date,
+                date_full: d.date_ss,
                 type: d.type ? d.type[0].trim() : null,
                 "Thematic Area": d.subject ? d.subject : null,
                 thumb: d.cover_ts,

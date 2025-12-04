@@ -14,7 +14,7 @@
 	const tweenedCx = $derived(cx.current);
 	const tweenedCy = $derived(cy.current);
 
-	const baseUrl = 'https://naturalrightshistory-staging.medialibrary.it/media/schedadl.aspx?id=';
+	const baseUrl = 'https://naturalrightshistory.medialibrary.it/media/schedadl.aspx?id=';
 
 	let open = $state(false);
 	let interfaceState = getInterface();
@@ -56,7 +56,7 @@
 				<div>
 					<div class="fs-7">{element.data.author}</div>
 					<h6 class="mb-0 line-clamp">{element.data.title}</h6>
-					<div class="fs-7">{element.data.date}</div>
+					<div class="fs-7">{element.data.date_full}</div>
 				</div>
 
 				<a href={baseUrl + element.data.id} target="_blank" class="btn btn-dark btn-sm rounded-pill"
