@@ -1,9 +1,11 @@
-name: Deploy to Server
+name: Deploy staging to dev server
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - 'src/lib/assets/nrh-staging.jsonl'
 
 jobs:
   deploy:
@@ -38,8 +40,8 @@ jobs:
           docker stop nrhapp 2>/dev/null || true
           docker rm nrhapp 2>/dev/null || true
           
-          # Build and run new container
-          docker build -t nrhapp .
+          # Build with staging data source
+          docker build --build-arg DATA_SOURCE=staging -t nrhapp .
           docker run -d --name nrhapp --restart unless-stopped -p 8085:8085 nrhapp
           
           # Check if running

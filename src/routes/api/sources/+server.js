@@ -1,8 +1,11 @@
 import data from '$lib/assets/nrh.jsonl?raw';
+import dataStaging from '$lib/assets/nrh-staging.jsonl?raw';
 import { json } from '@sveltejs/kit'
+import { env } from '$env/dynamic/public';
 
 export async function GET() {
-    const sources = data
+    const sourceData = env.PUBLIC_DATA_SOURCE === 'staging' ? dataStaging : data;
+    const sources = sourceData
         .trim()
         .split('\n')
         .filter(line => line.trim()) // Remove empty lines

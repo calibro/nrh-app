@@ -10,8 +10,12 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: adapter(), paths: {
+		adapter: adapter(),
+		paths: {
 			base: dev ? '' : process.env.BASE_PATH || ''
+		},
+		env: {
+			publicPrefix: 'PUBLIC_'
 		}
 	}
 };

@@ -1,5 +1,8 @@
 FROM node:alpine as build
 
+ARG DATA_SOURCE=staging
+ENV PUBLIC_DATA_SOURCE=${DATA_SOURCE}
+
 ADD . /app
 WORKDIR /app
 RUN npm install -g pnpm
