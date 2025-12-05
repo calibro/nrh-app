@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'src/lib/assets/nrh.jsonl'
+  workflow_dispatch:
 
 permissions:
   contents: write

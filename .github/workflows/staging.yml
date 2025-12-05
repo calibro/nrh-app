@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'src/lib/assets/nrh-staging.jsonl'
+  workflow_dispatch:
 
 jobs:
   deploy:
