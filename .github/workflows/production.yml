@@ -36,7 +36,6 @@ jobs:
       - name: Build
         env:
           BASE_PATH: '/nrh-app'
-          DATA_SOURCE: 'production'
         run: pnpm run build
 
       - name: Deploy to GitHub Pages
