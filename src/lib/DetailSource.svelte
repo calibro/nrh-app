@@ -27,12 +27,12 @@
 				<div class="fs-7">{interfaceState.selectedSource.data.date_full}</div>
 			</div>
 
-			<a
+			<!-- <a
 				href={baseUrl + interfaceState.selectedSource.data.id}
 				target="_blank"
 				class="btn btn-dark btn-sm rounded-pill"
 				>Open in Collection <i class="bi bi-arrow-up-right"></i></a
-			>
+			> -->
 			<button
 				class="btn btn-sm btn-link text-dark position-absolute top-0 end-0"
 				onclick={() => (interfaceState.selectedSource = null)}

@@ -14,9 +14,6 @@ const config = {
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH || ''
 		},
-		env: {
-			publicPrefix: 'PUBLIC_'
-		}
 	}
 };
 
