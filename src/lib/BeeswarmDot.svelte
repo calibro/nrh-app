@@ -59,9 +59,9 @@
 					<div class="fs-7">{element.data.date_full}</div>
 				</div>
 
-				<!-- <a href={baseUrl + element.data.id} target="_blank" class="btn btn-dark btn-sm rounded-pill"
+				<a href={baseUrl + element.data.id} target="_blank" class="btn btn-dark btn-sm rounded-pill"
 					>Open in Collection <i class="bi bi-arrow-up-right"></i></a
-				> -->
+				>
 				<button
 					class="btn btn-sm btn-link text-dark position-absolute top-0 end-0"
 					onclick={() => (open = false)}
