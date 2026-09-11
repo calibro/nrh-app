@@ -5,9 +5,9 @@ ENV PUBLIC_DATA_SOURCE=${DATA_SOURCE}
 
 ADD . /app
 WORKDIR /app
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10
 
-RUN pnpm install --config.ignore-builds=false
+RUN pnpm install
 RUN pnpm run build
 
 FROM nginx:stable
