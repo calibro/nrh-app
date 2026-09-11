@@ -7,7 +7,7 @@ ADD . /app
 WORKDIR /app
 RUN npm install -g pnpm
 
-RUN pnpm install
+RUN pnpm install --config.ignore-builds=false
 RUN pnpm run build
 
 FROM nginx:stable
